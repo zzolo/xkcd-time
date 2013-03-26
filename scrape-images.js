@@ -8,9 +8,9 @@ return(!i||i!==r&&!b.contains(r,i))&&(e.type=o.origType,n=o.handler.apply(this,a
 var images = [];
 $('#mw-content-text dl a').each(function() {
   var href = $(this).attr('href');
-  if (href.indexOf('title=Special:Upload&wpDestFile=') === -1) {
+  if (href.indexOf('images') !== -1 && href.indexOf('/time') !== -1 && href.indexOf('.png') !== -1) {
     images.push('http://www.explainxkcd.com' + href);
   } 
 });
 
-console.log('wget ' + images.join(' && wget ') + ';')
+console.log('wget -N ' + images.join(' && wget -N ') + ';')
