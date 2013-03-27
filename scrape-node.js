@@ -16,7 +16,7 @@ request(url, function(err, resp, body) {
     return;
   }
 
-  fs.mkdir('images/'+gag, function(e) {});
+  fs.mkdir('images/', function(e) {});
 
   $ = cheerio.load(body);
   var links = $('#mw-content-text dl a');
@@ -29,7 +29,7 @@ request(url, function(err, resp, body) {
       var number = match[1];
       while (number.length < 5) number = "0" + number;
 
-      var file = fs.createWriteStream('images/' + gag + '/' + number + '.png');
+      var file = fs.createWriteStream('images/' + number + '.png');
       var request = http.get('http://www.explainxkcd.com' + href, function(response) {
         response.pipe(file);
       });
