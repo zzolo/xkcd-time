@@ -40,16 +40,24 @@ request(url, function(err, resp, body) {
       if (href.indexOf('http') !== 0) {
         href = 'http://www.explainxkcd.com' + href;
       }
+      
+      var filePath = 'images/' + number + '.png';
 
       // Get each file
-      var file = fs.createWriteStream('images/' + number + '.png');
-      var request = http.get(href, function(response) {
-        if (resp.statusCode == 200) {
-          response.pipe(file);
+      fs.exists(filePath, function(exists) {
+        if (!exists) {
+          return;
         }
-        else {
-          console.log('Fail to get the page: ' + 'http://www.explainxkcd.com' + href);
-        }
+      
+        var file = fs.createWriteStream('images/' + number + '.png');
+        var request = http.get(href, function(response) {
+          if (resp.statusCode == 200) {
+            response.pipe(file);
+          }
+          else {
+            console.log('Fail to get the page: ' + 'http://www.explainxkcd.com' + href);
+          }
+        });
       });
     }
   });
